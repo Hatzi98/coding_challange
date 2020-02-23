@@ -1,1 +1,2 @@
 #coding_challange
+Ich konnte das Leaderboard leider nicht fertig machen, da ich ein Problem nicht lösen konnte. Ich habe keine Lösung gefunden um so lange zu warten bis der JsonArrayRequest abgeschlossen ist. Deswegen habe ich das Leaderboard nicht herunterladen können.

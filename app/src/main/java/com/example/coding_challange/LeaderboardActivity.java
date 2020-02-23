@@ -14,36 +14,64 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashSet;
 
 public class LeaderboardActivity extends AppCompatActivity {
+
+    private TextView txtView_Leaderboard;
+    private HashSet<JSONObject> robots;
+    private boolean finishedDownloading;
+    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
+        finishedDownloading = false;
+        _getLeaderboard();
 
-        /*RequestQueue requestQueue = Volley.newRequestQueue(this);
+        txtView_Leaderboard = findViewById(R.id.txtView_Leaderboard);
+        txtView_Leaderboard.setText("Results are downloading, please wait! ... ");
 
+      /*  while(!finishedDownloading){
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }*/
 
+    }
 
-        JsonArrayRequest objectRequest = new JsonArrayRequest(
-                Request.Method.GET,
-                getResources().getString(R.string.api_url),
-                null,
+    private void _getLeaderboard() {
+        requestQueue = Volley.newRequestQueue(this);
+        robots = new HashSet<>();
+
+        JsonArrayRequest objectRequest = new JsonArrayRequest(Request.Method.GET, getResources().getString(R.string.api_url) + "/robots", null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        TextView view = findViewById(R.id.text_home);
-                        view.setText(response.toString());
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+                                robots.add(response.getJSONObject(i));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        finishedDownloading = true;
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Snackbar.make(findViewById(R.id.nav_view),error.toString(),Snackbar.LENGTH_LONG).show();
+                        error.printStackTrace();
                     }
                 }
         );
-        requestQueue.add(objectRequest);*/
+        requestQueue.add(objectRequest);
+        requestQueue.start();
     }
 }

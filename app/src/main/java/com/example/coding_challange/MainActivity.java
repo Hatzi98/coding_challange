@@ -6,9 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private Button btn_newCompetition;
+    private Button btn_leaderboard;
+    private boolean openLeaderboard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btn_newCompetition = findViewById(R.id.btn_newCompetition);
+        btn_leaderboard = findViewById(R.id.btn_leaderboard);
+        openLeaderboard = false;
+
         btn_newCompetition.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -23,6 +29,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btn_leaderboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(openLeaderboard){
+                    openLeaderboardActivity();
+                }else{
+                    Toast.makeText(getApplicationContext(), "You have to finish one competition to look at the leaderboard!", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+    }
+
+    private void openLeaderboardActivity() {
+        Intent intent = new Intent(this, LeaderboardActivity.class);
+        startActivity(intent);
     }
 
     private void openCompetitionActivity(){
@@ -35,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == 2)
         {
-            findViewById(R.id.btn_leaderboard).setClickable(true);
+            openLeaderboard = true;
         }
     }
 }

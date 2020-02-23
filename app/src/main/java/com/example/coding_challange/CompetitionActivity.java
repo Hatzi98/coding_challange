@@ -141,6 +141,7 @@ public class CompetitionActivity extends AppCompatActivity {
         AlertDialog alert11 = builder.create();
         alert11.show();
     }
+
     /*private void _sendResults(JSONArray results_to_send){
 
         JsonArrayRequest sendResult = new JsonArrayRequest(
@@ -178,25 +179,26 @@ public class CompetitionActivity extends AppCompatActivity {
             nameTeamOne = "Team " + first_name + ":\n";
             nameTeamTwo = "Team " + second_name + ":\n";
             
-
-            
             if (robots.size() == 0) {
                 Toast.makeText(getApplicationContext(), "There are no robots to choose from! Check your internet connection!", Toast.LENGTH_LONG).show();
             } else {
 
+                //assign 5 robots to every team
                 robotsTeamOne = _fillTeam();
                 robotsTeamTwo = _fillTeam();
 
+                //make some buttons and textviews visible and display the lineup
                 findViewById(id.txtView_lineup).setVisibility(View.VISIBLE);
 
                 txtView_teamOne.setText(nameTeamOne + _printTeam(robotsTeamOne));
                 txtView_teamOne.setVisibility(View.VISIBLE);
 
-
                 txtView_teamTwo.setText(nameTeamTwo + _printTeam(robotsTeamTwo));
                 txtView_teamTwo.setVisibility(View.VISIBLE);
 
                 btn_startDancing.setVisibility(View.VISIBLE);
+
+                //disable the textboxes and the button for creating teams
                 txt_teamOne.setEnabled(false);
                 txt_teamTwo.setEnabled(false);
                 btn_createTeams.setClickable(false);
