@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">coding_challange</string>
+    <string name="btn_newCompetition">Start New Competition</string>
+    <string name="btn_leaderboard">Leaderboard</string>
+    <string name="api_url">https://challenge.parkside-interactive.com/api</string>
+</resources>
